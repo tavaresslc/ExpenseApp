@@ -14,15 +14,15 @@ Ciência da Computação | Tarde | Puc Minas Coração Eucaristico
 
 O aplicativo é dividido em 3 componentes principais:
 
-### `AddTransactionView`
+### AddTransactionView
 
 Um componente que permite adicionar novas transações, incluindo informações como quantia, descrição e tipo (despesa ou renda).
 
-### `OverViewComponent`
+### OverViewComponent
 
 Este componente exibe uma visão geral das finanças, mostrando o saldo atual, despesas e receitas.
 
-### `TransactionsComponent`
+### TransactionsComponent
 
 Um componente que exibe a lista de todas as transações registradas e uma barra de pesquisa onde consigo encontrar casa transação pela sua descrição.
 
