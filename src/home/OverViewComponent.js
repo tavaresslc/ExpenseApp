@@ -1,6 +1,8 @@
+// Importando as bibliotecas necessárias
 import React, { useState } from "react";
 import styled from "styled-components";
 
+// Definindo estilos para os componentes usando styled-components
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -87,24 +89,30 @@ const RadioBox = styled.div`
     margin: 0 10px;
   }
 `;
+
+// Componente funcional que lida com a adição de transações
 const AddTransactionView = (props) => {
+  // Estados locais para a quantia, descrição e tipo da transação
   const [amount, setAmount] = useState("");
   const [desc, setDesc] = useState("");
   const [type, setType] = useState("EXPENSE");
 
   return (
     <AddTransactionContainer isAddTxnVisible={props.isAddTxnVisible}>
+      {/* Entrada para a quantia */}
       <input
         placeholder="Quantia"
         type="number"
         value={amount}
         onChange={(e) => setAmount(e.target.value)}
       />
+      {/* Entrada para a descrição */}
       <input
         placeholder="Descrição"
         value={desc}
         onChange={(e) => setDesc(e.target.value)}
       />
+      {/* Seleção de tipo de transação (despesa ou renda) */}
       <RadioBox>
         <input
           type="radio"
@@ -126,6 +134,7 @@ const AddTransactionView = (props) => {
         <label htmlFor="income">Renda</label> {}
       </RadioBox>
 
+      {/* Botão para adicionar a transação */}
       <AddTransaction
         onClick={() =>
           props.addTransaction({
@@ -141,16 +150,23 @@ const AddTransactionView = (props) => {
     </AddTransactionContainer>
   );
 };
+
+// Componente funcional para a visão geral
 const OverViewComponent = (props) => {
+  // Estado local para controlar a visibilidade do formulário de adição de transação
   const [isAddTxnVisible, toggleAddTXn] = useState(false);
   return (
     <Container>
+      {/* Caixa de saldo */}
       <BalanceBox>
         Saldo: R${props.income - props.expense}
+        {/* Botão para alternar a visibilidade do formulário de adição */}
         <AddTransaction onClick={() => toggleAddTXn((isVisible) => !isVisible)}>
           {isAddTxnVisible ? "-" : "+"}
         </AddTransaction>
       </BalanceBox>
+      {/* Renderiza o formulário de adição se a visibilidade estiver ativada */}
+      {isAddTxnVisible && (
       {isAddTxnVisible && (
         <AddTransactionView
           isAddTxnVisible={isAddTxnVisible}
@@ -160,6 +176,7 @@ const OverViewComponent = (props) => {
           }}
         />
       )}
+      {/* Containers para despesa e renda */}
       <ExpenseContainer>
         <ExpenseBox>
           Despesa<span>R${props.expense}</span>
@@ -171,4 +188,6 @@ const OverViewComponent = (props) => {
     </Container>
   );
 };
+
+// Exporta o componente de visão geral
 export default OverViewComponent;
