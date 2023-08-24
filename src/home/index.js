@@ -1,8 +1,10 @@
+// Importando as bibliotecas necessárias
 import React, { useEffect, useState, useCallback } from "react";
 import styled from "styled-components";
 import OverViewComponent from "./OverViewComponent";
 import TransactionsComponent from "./TransactionsComponent";
 
+// Definindo estilos para o componente Container usando styled-components
 const Container = styled.div`
   background-color: white;
   color: #0d1d2c;
@@ -15,13 +17,18 @@ const Container = styled.div`
   justify-content: space-between;
 `;
 
+// Componente funcional que representa a página inicial
 const HomeComponent = (props) => {
+  // Estado local para armazenar as transações (inicializado com os dados do localStorage ou vazio)
   const [transactions, updateTransaction] = useState(
     JSON.parse(localStorage.getItem("transactions")) || []
   );
+  
+  // Estados locais para despesa e renda
   const [expense, updateExpense] = useState(0);
   const [income, updateIncome] = useState(0);
 
+  // Função que calcula o saldo total a partir das transações
   const calculateBalance = useCallback(() => {
     let exp = 0;
     let inc = 0;
@@ -36,11 +43,14 @@ const HomeComponent = (props) => {
     updateIncome(inc);
   }, [transactions]);
 
+  // Efeito que é disparado quando as transações são alteradas ou quando o componente é montado
   useEffect(() => {
     calculateBalance();
+    // Armazenando as transações no localStorage
     localStorage.setItem("transactions", JSON.stringify(transactions));
   }, [transactions, calculateBalance]);
 
+  // Função para adicionar uma nova transação
   const addTransaction = (payload) => {
     const transactionArray = [...transactions];
     transactionArray.push(payload);
@@ -49,11 +59,13 @@ const HomeComponent = (props) => {
 
   return (
     <Container>
+      {/* Componente de visão geral */}
       <OverViewComponent
         expense={expense}
         income={income}
         addTransaction={addTransaction}
       />
+      {/* Renderiza o componente de lista de transações apenas se houver transações */}
       {transactions.length ? (
         <TransactionsComponent transactions={transactions} />
       ) : null}
@@ -61,4 +73,5 @@ const HomeComponent = (props) => {
   );
 };
 
+// Exporta o componente da página inicial
 export default HomeComponent;
