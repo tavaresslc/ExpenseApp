@@ -4,7 +4,7 @@ import styled from "styled-components";
 import OverViewComponent from "./OverViewComponent";
 import TransactionsComponent from "./TransactionsComponent";
 
-// Definindo estilos para o componente Container usando styled-components
+// Definindo estilos para os componentes
 const Container = styled.div`
   background-color: white;
   color: #0d1d2c;
@@ -15,6 +15,18 @@ const Container = styled.div`
   width: 360px;
   align-items: center;
   justify-content: space-between;
+`;
+
+const ClearButton = styled.div`
+  font-size: 15px;
+  background: #0d1d2c;
+  display: flex;
+  color: white;
+  padding: 5px 10px;
+  cursor: pointer;
+  flex-direction: row;
+  border-radius: 4px;
+  font-weight: bold;
 `;
 
 // Componente funcional que representa a página inicial
@@ -57,6 +69,12 @@ const HomeComponent = (props) => {
     updateTransaction(transactionArray);
   };
 
+  // Função para limpar a lista de transações
+  const clearLocalStorage = () => {
+    localStorage.clear();
+    window.location.reload();
+  };
+
   return (
     <Container>
       {/* Componente de visão geral */}
@@ -69,6 +87,7 @@ const HomeComponent = (props) => {
       {transactions.length ? (
         <TransactionsComponent transactions={transactions} />
       ) : null}
+      <ClearButton onClick={clearLocalStorage}>LIMPAR</ClearButton>
     </Container>
   );
 };
